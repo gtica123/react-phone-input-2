@@ -214,12 +214,29 @@ class PhoneInput extends React.Component {
       freezeSelection: false,
       debouncedQueryStingSearcher: debounce(this.searchCountry, 250),
       searchValue: '',
+
+      inputContainerWidth: 0,
+      width: 0
     };
   }
 
   componentDidMount() {
+    if(this.numberInputContainerRef){
+      this.setInputContainerWidth();
+      window.addEventListener('resize', this.setInputContainerWidth.bind(this));
+    }
     if (document.addEventListener && this.props.enableClickOutside) {
       document.addEventListener('mousedown', this.handleClickOutside);
+    }
+  }
+
+  componentDidUpdate() {
+    const { formattedNumber, selectedCountry } = this.state;
+    const { countryCodeEditable } = this.props;
+    if (formattedNumber === "" && !countryCodeEditable) {
+      this.setState({
+        formattedNumber: "+" + selectedCountry.countryCode
+      });
     }
   }
 
@@ -236,6 +253,13 @@ class PhoneInput extends React.Component {
     else if (nextProps.value !== this.props.value) {
       this.updateFormattedNumber(nextProps.value);
     }
+  }
+
+  setInputContainerWidth() {
+    const inputContainerWidth = this.numberInputContainerRef.clientWidth + 1;
+    if(inputContainerWidth !== this.state.inputContainerWidth) {
+      this.setState({ inputContainerWidth })
+    };
   }
 
   getProbableCandidate = memoize((queryString) => {
@@ -808,7 +832,7 @@ class PhoneInput extends React.Component {
       <ul
         ref={el => this.dropdownRef = el}
         className={dropDownClasses}
-        style={this.props.dropdownStyle}
+        style={{...this.props.dropdownStyle, width: this.state.inputContainerWidth}}
       >
         {enableSearch && (
           <li
@@ -897,6 +921,7 @@ class PhoneInput extends React.Component {
 
     return (
       <div
+        ref={el => this.numberInputContainerRef = el}
         className={containerClasses}
         style={this.props.style || this.props.containerStyle}
         onKeyDown={this.handleKeydown}>
