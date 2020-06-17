@@ -256,10 +256,12 @@ class PhoneInput extends React.Component {
   }
 
   setInputContainerWidth() {
-    const inputContainerWidth = this.numberInputContainerRef.clientWidth + 1;
-    if(inputContainerWidth !== this.state.inputContainerWidth) {
-      this.setState({ inputContainerWidth })
-    };
+    if(this.numberInputContainerRef){
+      const inputContainerWidth = this.numberInputContainerRef.clientWidth + 1;
+        if(inputContainerWidth !== this.state.inputContainerWidth) {
+          this.setState({ inputContainerWidth })
+        };
+    }
   }
 
   getProbableCandidate = memoize((queryString) => {
