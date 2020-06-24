@@ -218,6 +218,8 @@ class PhoneInput extends React.Component {
       inputContainerWidth: 0,
       width: 0
     };
+
+    if (props.onChange) props.onChange(formattedNumber.replace(/[^0-9]+/g,''), this.getCountryData(), {}, formattedNumber);
   }
 
   componentDidMount() {
