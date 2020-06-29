@@ -903,6 +903,7 @@ class PhoneInput extends React.Component {
 
     const containerClasses = classNames({
       [this.props.containerClass]: true,
+      disableDropdown,
       'react-tel-input': true,
     });
     const arrowClasses = classNames({'arrow': true, 'up': showDropdown});
