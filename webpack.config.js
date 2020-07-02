@@ -31,7 +31,7 @@ const common = {
       },
       {
         test: /\.png.*$/,
-        loaders: ['url-loader?limit=100000&mimetype=image/png'],
+        loaders: 'file-loader?name=lib/images/[name].[ext]',
         exclude: /node_modules/
       }
     ]
