@@ -822,8 +822,10 @@ class PhoneInput extends React.Component {
           onClick={(e) => this.handleFlagItemClick(country, e)}
         >
           <img className={inputFlagClasses} src={images[`./${country.iso2}.png`]}/>
-          <span className='country-name'>{this.getDropdownCountryName(country)}</span>
-          <span className='dial-code'>{country.format ? this.formatNumber(country.dialCode, country) : (prefix+country.dialCode)}</span>
+          <div>
+            <span className='country-name'>{this.getDropdownCountryName(country)}</span>
+            <span className='dial-code'>{country.format ? this.formatNumber(country.dialCode, country) : (prefix+country.dialCode)}</span>
+          </div>
         </li>
       );
     });
