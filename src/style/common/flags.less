@@ -9,16 +9,9 @@
   }
   .flag {
     width: 28px;
-    height: 24px;
+    height: auto;
   }
 
-  each(@countries, {
-    .@{value} {
-      background: url("./icons/@{value}.png");
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-  })
   * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;

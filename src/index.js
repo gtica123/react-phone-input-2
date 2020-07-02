@@ -8,6 +8,12 @@ import classNames from 'classnames';
 import './utils/prototypes'
 
 import CountryData from './CountryData.js';
+const images = {};
+
+function importAll (r) {
+  r.keys().forEach(key => images[key] = r(key));
+}
+importAll(require.context('./style/common/icons'));
 
 class PhoneInput extends React.Component {
   static propTypes = {
@@ -815,7 +821,7 @@ class PhoneInput extends React.Component {
           data-country-code={country.iso2}
           onClick={(e) => this.handleFlagItemClick(country, e)}
         >
-          <div className={inputFlagClasses}/>
+          <img className={inputFlagClasses} src={images[`./${country.iso2}.png`]}/>
           <span className='country-name'>{this.getDropdownCountryName(country)}</span>
           <span className='dial-code'>{country.format ? this.formatNumber(country.dialCode, country) : (prefix+country.dialCode)}</span>
         </li>
@@ -923,7 +929,7 @@ class PhoneInput extends React.Component {
       'invalid-number': !isValidValue,
       'open': showDropdown,
     });
-    const inputFlagClasses = `flag ${selectedCountry && selectedCountry.iso2}`;
+    const inputFlagClasses = `flag`;
 
     return (
       <div
@@ -965,9 +971,8 @@ class PhoneInput extends React.Component {
             className={selectedFlagClasses}
             title={selectedCountry ? `${selectedCountry.name}: + ${selectedCountry.dialCode}` : ''}
           >
-            <div className={inputFlagClasses}>
-              {!disableDropdown && <div className={arrowClasses}></div>}
-            </div>
+            <img className={inputFlagClasses} src={images[`./${selectedCountry && selectedCountry.iso2}.png`]}/>
+            {!disableDropdown && <div className={arrowClasses}></div>}
           </div>}
 
           {showDropdown && this.getCountryDropdownList()}
