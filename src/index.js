@@ -962,7 +962,7 @@ class PhoneInput extends React.Component {
           className={flagViewClasses}
           style={this.props.buttonStyle}
           ref={el => this.dropdownContainerRef = el}
-          tabIndex={disableDropdown ? '-1' : '0'}
+          tabIndex={disableDropdown ? undefined : '0'}
           role='button'
         >
           {renderStringAsFlag ?
